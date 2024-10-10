@@ -89,4 +89,39 @@ rapperRoutes.get("/:id", (req, res) => {
   
     return res.status(200).json(rappers);
   });
+// Rota para atualizar um rapper pelo id
+rapperRoutes.put("/:id", (req, res) => {
+    const { id } = req.params;
+    const { nome, idade, descricaofisica, eas } = req.body;
+
+  
+    // Busca um rapper pelo id no array de rapper
+    const rapper = rapper.find((p) => p.id == id);
+
+     // Validação dos campos obrigatórios
+  if (!nome || !idade || !descricaofisica || !eas) {
+    return res.status(400).json({
+      message: "Os campos nome, idade, descricaofisica e eas são obrigatórios!",
+    });
+}
+ // Validação de existência de eas
+ if (eas != "sim" && eas != "não") {
+    return res.status(400).send({
+      message: "Digite 'sim' ou 'não'!",
+    });
+  }
+
+  rapper.nome = nome;
+  rapper.idade = idade;
+  rapper.descricaofisica = descricaofisica;
+  rapper.eas = eas || [];
+
+  return res.status(200).json({
+    message: "Rapper atualizado com sucesso!",
+    rapper,
+  });
+
+});
+
+
 export default rapperRoutes;
