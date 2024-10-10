@@ -38,5 +38,40 @@ rapperRoutes.get("/", (req, res) => {
     return res.status(200).json(rapper);
   });
   
-  
-  export default rapperRoutes;
+  // Rota para cadastrar um novo suspeito
+rapperRoutes.post("/", (req, res) => {
+    const { nome, idade, descricaofisica, eas } = req.body;
+
+ // Validação dos campos obrigatórios
+ if (!nome || !idade || !descricaofisica) {
+    return res.status(400).json({
+      message: "Os campos nome, idade, e descricaofisica são obrigatórios!",
+    });
+}
+
+  // Validação se a pessoa é suspeita
+  if (eas != "sim" && eas != "não") {
+    return res.status(400).send({
+      message: "Digite 'sim' ou 'não'!",
+    });
+  }
+
+  // Criação de um novo suspeito
+  const novoRapper = {
+    id: Math.floor(Math.random() * 1000000),
+    nome,
+    idade,
+    descricaofisica,
+    eas: eas|| [], 
+    // Valor padrão caso eas não seja enviado
+  };
+   // Adiciona o novo rapper ao array de rapper
+   rapper.push(novoRapper);
+
+   return res.status(201).json({
+     message: "Rapper cadastrado com sucesso!",
+     novoRapper,
+   });
+ });
+
+export default rapperRoutes;
