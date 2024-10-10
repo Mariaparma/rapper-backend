@@ -11,6 +11,6 @@ routes.get("/", (req, res) => {
 });
 
 // Lista de uso das rotas do projeto
-routes.use("/rapper", rapperRoutesRoutes);
+routes.use("/rapper", rapperRoutes);
 
 export default routes;
