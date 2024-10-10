@@ -81,7 +81,7 @@ rapperRoutes.get("/:id", (req, res) => {
     const rappers = rapper.find((rapper) => rapper.id == id);
   
     // Verifica se o rapper foi encontrado
-    if (!rapper) {
+    if (!rappers) {
       return res
         .status(404)
         .json({ message: `Rapper com id ${id} não encontrado!` });
@@ -96,7 +96,7 @@ rapperRoutes.put("/:id", (req, res) => {
 
   
     // Busca um rapper pelo id no array de rapper
-    const rapper = rapper.find((p) => p.id == id);
+    const rappers = rapper.find((p) => p.id == id);
 
      // Validação dos campos obrigatórios
   if (!nome || !idade || !descricaofisica || !eas) {
@@ -122,6 +122,26 @@ rapperRoutes.put("/:id", (req, res) => {
   });
 
 });
+// Rota para deletar um planeta
+rapperRoutes.delete("/:id", (req, res) => {
+  const { id } = req.params;
 
+  // Busca um planeta pelo id no array de planetas
+  const rappers = rapper.find((singer) => singer.id == id);
 
+  // Verifica se o rapper foi encontrado
+  if (!rappers) {
+    return res
+      .status(404)
+      .json({ message: `Rapper com id ${id} não encontrado!` });
+  }
+
+  // Remove o rapper do array de rappers
+  rappers = rapper.filter((singer) => singer.id != id);
+
+  return res.status(200).json({
+    message: "Rapper removido com sucesso!",
+    planeta,
+  });
+});
 export default rapperRoutes;
